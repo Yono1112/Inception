@@ -1,8 +1,10 @@
 version: '3'
 services:
   nginx:
+    container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      # - "8080:80"
+      - "443:443"
