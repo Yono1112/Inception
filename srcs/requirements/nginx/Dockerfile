@@ -9,7 +9,7 @@ RUN mkdir -p /etc/ssl/private && \
     -keyout /etc/ssl/private/private.key \
     -out /etc/ssl/certs/certs.crt
 
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf/default.conf /etc/nginx/conf.d
 
 EXPOSE 443
 
