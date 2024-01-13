@@ -1,58 +1,47 @@
-# version: '3.3'
+version: '3.3'
 
-# services:
-#   db:
-#     container_name: mariadb
-#     image: mariadb
-#     volumes:
-#       - db_data:/var/lib/mysql
-#     restart: always
-#     environment:
-#       MARIADB_ROOT_PASSWORD: '${MARIADB_ROOT_PASSWORD}'
-#       MARIADB_DATABASE: '${MARIADB_DATABASE}'
-#       MARIADB_USER: '${MARIADB_USER}'
-#       MARIADB_PASSWORD: '${MARIADB_PASSWORD}'
-
-#   wordpress:
-#     container_name: wordpress
-#     depends_on:
-#       - db
-#     image: wordpress:php7.4-fpm
-#     volumes:
-#       - wordpress_data:/var/www/html
-#     restart: always
-#     environment:
-#       WORDPRESS_DB_HOST: '${WORDPRESS_DB_HOST}'
-#       WORDPRESS_DB_USER: '${WORDPRESS_DB_USER}'
-#       WORDPRESS_DB_PASSWORD: '${WORDPRESS_DB_PASSWORD}'
-#       WORDPRESS_DB_NAME: '${WORDPRESS_DB_NAME}'
-
-#   nginx:
-#     container_name: nginx
-#     build:
-#       context: ./requirements/nginx
-#       dockerfile: Dockerfile
-#     ports:
-#       # - "8080:80"
-#       - "12345:443"
-#     volumes:
-#       - ./requirements/nginx:/etc/nginx/conf.d
-#       - wordpress_data:/var/www/html
-#     depends_on:
-#       - wordpress
-#     restart: always
-
-# volumes:
-#   db_data:
-#   wordpress_data:
-
-version: '3'
 services:
+  db:
+    container_name: mariadb
+    image: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - db
+    image: wordpress:php7.4-fpm
+    volumes:
+      - wordpress_data:/var/www/html
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: '${WORDPRESS_DB_HOST}'
+      WORDPRESS_DB_USER: '${WORDPRESS_DB_USER}'
+      WORDPRESS_DB_PASSWORD: '${WORDPRESS_DB_PASSWORD}'
+      WORDPRESS_DB_NAME: '${WORDPRESS_DB_NAME}'
+
   nginx:
-    container_name: my-nginx
+    container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     ports:
-      # - "8080:80"
+      # - "80:80"
       - "443:443"
+    volumes:
+      - ./requirements/nginx/conf:/etc/nginx/conf.d
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wordpress
+    restart: always
+
+volumes:
+  db_data:
+  wordpress_data:
