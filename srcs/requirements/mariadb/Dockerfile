@@ -1,5 +1,18 @@
-FROM mariadb:latest
+# Debian ベースイメージを使用
+FROM debian:latest
 
-COPY ./init.sql /docker-entrypoint-initdb.d/
+# 必要なパッケージのインストール
+RUN apt-get update && apt-get install -y mariadb-server
 
-VOLUME [ "/var/lib/mysql" ]
+# カスタムエントリポイントスクリプトのコピー
+COPY ./init-db.sh /docker-entrypoint-initdb.d/
+RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh
+
+COPY ./entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# ポートの露出
+EXPOSE 3306
+
+# カスタムエントリポイントスクリプトの実行
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
