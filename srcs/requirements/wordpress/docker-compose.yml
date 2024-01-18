@@ -19,7 +19,7 @@ services:
       - db
     image: wordpress:php7.4-fpm
     volumes:
-      - wordpress_data:/var/www/html
+      - ./wordpress_data:/var/www/html
     restart: always
     environment:
       WORDPRESS_DB_HOST: '${WORDPRESS_DB_HOST}'
@@ -35,11 +35,11 @@ services:
       - "8080:8080"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - wordpress_data:/var/www/html
+      - ./wordpress_data:/var/www/html
     depends_on:
       - wordpress
     restart: always
 
 volumes:
   db_data:
-  wordpress_data:
+  # wordpress_data:
