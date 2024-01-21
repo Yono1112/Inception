@@ -5,3 +5,11 @@
 		- wordpressのボリュームが/var/www/htmlに正しくマウントされていなく、nginxが参照できていなかった
 	- 対策
 		- docker-compose.ymlのvolumes:でwordpressとnginxのボリュームを合わせる
+
+- error
+	- 問題
+		- mariadbをDockerfileから自作してwordpressを立ち上げようとしても"Error Establishing a Database Connection"でdbに接続できない
+	- 行なったが直らなかった対処法
+		- wp-config.phpのホスト名やデータベース名を環境変数の値と同じに書き換えた
+	- 対策
+		- mariadbのリッスンしているポート番号(3306番)がローカルホストのアドレスのみをバインドしていた。Dockerコンテナ間で通信するには、MariaDBサーバーが全てのネットワークインターフェース（0.0.0.0）または特定のDockerネットワークにバインドするように設定する必要があるので、MariaDBの設定ファイル（my.cnf）で bind-address パラメータを調整する必要があった。

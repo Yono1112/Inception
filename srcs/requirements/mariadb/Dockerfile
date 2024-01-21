@@ -29,4 +29,4 @@ EXPOSE 3306
 
 # カスタムエントリポイントスクリプトの実行
 # ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
-ENTRYPOINT [ "mysqld_safe" ]
+CMD [ "mysqld_safe" ]
