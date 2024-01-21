@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     php-gd \
     php-curl \
     wget \
+    # telnet \
     && rm -rf /var/lib/apt/lists/*
 
 # PHP-FPMのバージョンに応じた実行可能ファイルのパスを確認

@@ -2,7 +2,11 @@ version: '3.1'
 
 services:
   db:
-    image: mariadb
+    # image: mariadb
+    container_name: my-mariadb
+    build:
+      context: ../mariadb
+      dockerfile: Dockerfile
     # volumes:
     #   - db_data:/var/lib/mysql
     restart: always
@@ -24,6 +28,7 @@ services:
     restart: always
     volumes:
       - wordpress_data:/var/www/html
+      # - ./wp-config.php:/var/www/html/wp-config.php
     env_file:
       - .env
     # environment:
@@ -37,7 +42,7 @@ services:
     build:
       context: ../nginx/
       dockerfile: Dockerfile
-    container_name: nginx
+    container_name: my-nginx
     ports:
       - "443:443"
       # - "8000:80"

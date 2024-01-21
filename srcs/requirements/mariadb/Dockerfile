@@ -3,6 +3,7 @@ FROM debian:latest
 
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y mariadb-server
+    # net-tools
 
 # RUN mkdir /var/lib/mysql/wordpress/
 # RUN chown -R mysql:mysql /var/lib/mysql/wordpress/
@@ -18,6 +19,8 @@ RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh
 
 COPY ./entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+COPY ./my.cnf /etc/mysql/my.cnf
 
 RUN service mariadb start && /docker-entrypoint-initdb.d/init-db.sh
 
