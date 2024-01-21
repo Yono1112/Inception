@@ -1,0 +1,7 @@
+- error
+	- 問題
+		- wordpressのインストール画面でcssのスタイルが適用されない
+	- 原因
+		- wordpressのボリュームが/var/www/htmlに正しくマウントされていなく、nginxが参照できていなかった
+	- 対策
+		- docker-compose.ymlのvolumes:でwordpressとnginxのボリュームを合わせる
