@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y mariadb-server tini
 COPY ./init-db.sh /docker-entrypoint-initdb.d/
 RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh
 
-COPY ./entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# COPY ./entrypoint.sh /usr/local/bin/
+# RUN chmod +x /usr/local/bin/entrypoint.sh
 
 COPY ./my.cnf /etc/mysql/my.cnf
 
