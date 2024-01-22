@@ -2,7 +2,7 @@
 FROM debian:latest
 
 # 必要なパッケージのインストール
-RUN apt-get update && apt-get install -y mariadb-server
+RUN apt-get update && apt-get install -y mariadb-server tini
     # net-tools
 
 # RUN mkdir /var/lib/mysql/wordpress/
@@ -27,6 +27,8 @@ RUN service mariadb start && /docker-entrypoint-initdb.d/init-db.sh
 # ポートの露出
 EXPOSE 3306
 
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
+
 # カスタムエントリポイントスクリプトの実行
 # ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
-CMD [ "mysqld_safe" ]
+CMD [ "mysqld" ]
