@@ -1,32 +1,21 @@
 version: '3.3'
 
 services:
-  # db:
-  #   container_name: mariadb
-  #   image: mariadb
-  #   volumes:
-  #     - db_data:/var/lib/mysql
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
-  #     MYSQL_DATABASE: '${MYSQL_DATABASE}'
-  #     MYSQL_USER: '${MYSQL_USER}'
   db:
     container_name: mariadb
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+      args:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     restart: always
-    env_file:
-      - .env
+    # env_file: 
+    # - .env
     # volumes:
     #   - db_data:/var/lib/mysql
-    # environment:
-    #   MYSQL_ROOT_PASSWORD: rootpassword
-    #   MYSQL_DATABASE: wordpress
-    #   MYSQL_USER: wordpress
-    #   MYSQL_PASSWORD: wordpress
-  #     MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
 
   wordpress:
     container_name: wordpress

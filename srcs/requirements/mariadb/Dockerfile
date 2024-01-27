@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y mariadb-server tini
 # RUN mkdir /var/lib/mysql/wordpress/
 # RUN chown -R mysql:mysql /var/lib/mysql/wordpress/
 
-# ARG MYSQL_ROOT_PASSWORD
-# ARG MYSQL_DATABASE
-# ARG MYSQL_USER
-# ARG MYSQL_PASSWORD
+ARG MYSQL_ROOT_PASSWORD
+ARG MYSQL_DATABASE
+ARG MYSQL_USER
+ARG MYSQL_PASSWORD
 
 # カスタムエントリポイントスクリプトのコピー
 COPY ./init-db.sh /docker-entrypoint-initdb.d/
