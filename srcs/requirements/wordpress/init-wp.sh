@@ -9,9 +9,14 @@ if ! wp core is-installed --allow-root ; then
 	--admin_email="${WORDPRESS_ADMIN_EMAIL}" \
 	--locale=ja \
 	--skip-email
+
 	wp language core install --allow-root ja
 	wp site switch-language --allow-root ja
 	wp option update --allow-root timezone_string 'Asia/Tokyo'
+
+	wp user create --allow-root yuohno ${WORDPRESS_DEV_EMAIL} \
+	--user_pass=${WORDPRESS_DEV_PASSWORD} \
+	--role=author
 fi
 
 exec /usr/sbin/php-fpm -F
