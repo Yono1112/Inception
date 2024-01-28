@@ -12,45 +12,38 @@ services:
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     restart: always
-    # env_file: 
-    # - .env
     # volumes:
     #   - db_data:/var/lib/mysql
+    #   - /home/yuohno/data/db:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
-    depends_on:
-      - db
-    # image: wordpress:php7.4-fpm
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+    depends_on:
+      - db
     volumes:
       - wordpress_data:/var/www/html
+      # - /home/yuohno/data/wordpress:/var/www/html
     restart: always
     env_file:
       - .env
-    # environment:
-    #   WORDPRESS_DB_HOST: '${WORDPRESS_DB_HOST}'
-    #   WORDPRESS_DB_USER: '${WORDPRESS_DB_USER}'
-    #   WORDPRESS_DB_PASSWORD: '${WORDPRESS_DB_PASSWORD}'
-    #   WORDPRESS_DB_NAME: '${WORDPRESS_DB_NAME}'
 
   nginx:
     container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    ports:
-      # - "80:80"
-      - "443:443"
-    volumes:
-      - ./requirements/nginx/conf:/etc/nginx/conf.d
-      - wordpress_data:/var/www/html
     depends_on:
       - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+      # - /home/yuohno/data/wordpress:/var/www/html
     restart: always
 
 volumes:
-  # db_data:
   wordpress_data:
+  # db_data:
