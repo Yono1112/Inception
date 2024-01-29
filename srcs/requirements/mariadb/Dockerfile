@@ -1,6 +1,6 @@
 # Debian ベースイメージを使用
-FROM debian:latest
-# FROM debian:bullseye-slim
+# FROM debian:latest
+FROM debian:bullseye-slim
 
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y mariadb-server tini
