@@ -1,24 +1,24 @@
 SRC = srcs/docker-compose.yml
 
 up:
-	docker-compose -f ${SRC} up -d
+	docker compose -f ${SRC} up -d
 
 down:
-	docker-compose -f ${SRC} down
+	docker compose -f ${SRC} down
 
 build:
-	docker-compose -f ${SRC} build
+	docker compose -f ${SRC} build
 
 re:
-	docker-compose -f ${SRC} down
-	docker-compose -f ${SRC} build
-	docker-compose -f ${SRC} up -d
+	docker compose -f ${SRC} down
+	docker compose -f ${SRC} build
+	docker compose -f ${SRC} up -d
 
 clean:
-	docker-compose -f ${SRC} down -v --rmi all
+	docker compose -f ${SRC} down -v --rmi all
 
 ps:
-	docker-compose -f ${SRC} ps
+	docker compose -f ${SRC} ps
 
 mariadb:
 	docker exec -it mariadb bash
