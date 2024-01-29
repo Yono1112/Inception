@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/sbin/php-fpm* /usr/sbin/php-fpm
 
 # WordPressのダウンロードとセットアップ
+# --strip-components=1で解凍後のファイルをルートディレクトリにそのまま格納する
 WORKDIR /var/www/html
 RUN wget https://wordpress.org/latest.tar.gz \
     && tar xzvf latest.tar.gz --strip-components=1 \
