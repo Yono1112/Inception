@@ -1,6 +1,8 @@
 #!/bin/bash
 
 if ! wp core is-installed --allow-root ; then
+	sleep 2
+
 	wp core install --allow-root --path=/var/www/html \
 	--url="yuohno.42.fr" \
 	--title="Yuohno Blog" \
