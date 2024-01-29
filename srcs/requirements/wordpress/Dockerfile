@@ -19,7 +19,7 @@ RUN ln -s /usr/sbin/php-fpm* /usr/sbin/php-fpm
 # WordPressのダウンロードとセットアップ
 WORKDIR /var/www/html
 RUN wget https://wordpress.org/latest.tar.gz \
-    && tar xzvf latest.tar.gz \
+    && tar xzvf latest.tar.gz --strip-components=1 \
     && rm latest.tar.gz
 
 # WP-CLIのインストール
