@@ -1,16 +1,16 @@
 # FROM wordpress:latest
 # FROM wordpress:php7.4-fpm
-FROM debian:latest
+# FROM debian:latest
 # FROM debian:bookworm-slim
-# FROM debian:bullseye-slim
+FROM debian:bullseye-slim
 
 # 必要な依存関係のインストール
 RUN apt-get update && apt-get install -y \
-    php \
-    php-fpm \
-    php-mysql \
-    php-gd \
-    php-curl \
+    php7.4 \
+    php7.4-fpm \
+    php7.4-mysql \
+    php7.4-gd \
+    php7.4-curl \
     wget \
     # telnet \
     && rm -rf /var/lib/apt/lists/*
@@ -31,11 +31,10 @@ RUN wget -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh
 
 # wp-config.php ファイルの設定
 COPY conf/wp-config.php /var/www/html/wp-config.php
-# COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
-COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 # ファイルの所有権を変更
-RUN chown -R www-data:www-data /var/www/html
+RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
 
 # WordPressの初期設定スクリプトを追加
 COPY tools/init-wp.sh /usr/local/bin/init-wp.sh
