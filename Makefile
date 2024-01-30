@@ -1,5 +1,7 @@
 SRC = srcs/docker-compose.yml
 
+all: build up
+
 up:
 # mkdir -p /home/yuohno/data/mariadb
 # mkdir -p /home/yuohno/data/wordpress
@@ -11,10 +13,7 @@ down:
 build:
 	docker compose -f ${SRC} build
 
-re:
-	docker compose -f ${SRC} down
-	docker compose -f ${SRC} build
-	docker compose -f ${SRC} up -d
+re: down build up
 
 clean:
 	docker compose -f ${SRC} down -v --rmi all
