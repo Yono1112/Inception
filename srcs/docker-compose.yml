@@ -14,7 +14,6 @@ services:
     restart: always
     # volumes:
     #   - db_data:/var/lib/mysql
-    #   - /home/yuohno/data/db:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
@@ -24,8 +23,7 @@ services:
     depends_on:
       - db
     volumes:
-      - wordpress_data:/var/www/html
-      # - /home/yuohno/data/wordpress:/var/www/html
+      - wp_data:/var/www/html
     restart: always
     env_file:
       - .env
@@ -40,10 +38,19 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_data:/var/www/html
-      # - /home/yuohno/data/wordpress:/var/www/html
+      - wp_data:/var/www/html
     restart: always
 
 volumes:
-  wordpress_data:
+  wp_data:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /home/yuohno/data/wordpress
   # db_data:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /home/yuohno/data/mariadb

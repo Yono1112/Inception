@@ -1,6 +1,8 @@
 SRC = srcs/docker-compose.yml
 
 up:
+# mkdir -p /home/yuohno/data/mariadb
+# mkdir -p /home/yuohno/data/wordpress
 	docker compose -f ${SRC} up -d
 
 down:
@@ -16,6 +18,8 @@ re:
 
 clean:
 	docker compose -f ${SRC} down -v --rmi all
+# rm -rf /home/yuohno/data/wordpress
+# rm -rf /home/yuohno/data/mariadb
 
 ps:
 	docker compose -f ${SRC} ps
