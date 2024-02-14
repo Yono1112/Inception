@@ -11,6 +11,7 @@ services:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    image: mariadb
     restart: always
     networks:
       - db-wordpress
@@ -27,6 +28,7 @@ services:
     volumes:
       - wp_data:/var/www/html
     restart: always
+    image: wordpress
     env_file:
       - .env
     networks:
@@ -38,6 +40,7 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
+    image: nginx
     depends_on:
       - wordpress
     ports:
